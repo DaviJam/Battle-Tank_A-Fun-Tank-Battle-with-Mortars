@@ -5,6 +5,7 @@
 #include "Classes/GameFramework/Controller.h"
 #include "BattleTank.h"
 
+
 ATank* ATankPlayerController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
@@ -38,8 +39,11 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!GetControlledTank()) { return; }
+	//if (!GetControlledTank()) { return; }
 
+	//FVector HitLocation; //Out Parameter
+
+	//UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"),*HitLocation.ToString())
 	//Get world location if linetrace through crosshair
 	//if it hits the landscape
 	//Tell controlled tank to aim at this point

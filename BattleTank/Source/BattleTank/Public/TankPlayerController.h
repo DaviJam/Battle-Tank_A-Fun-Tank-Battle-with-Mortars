@@ -23,7 +23,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	//Start teh tank moving the barrels so that a shot would hit where the crosshair intersect the world
+	//Start the tank moving the barrels so that a shot would hit where the crosshair intersect the world
 	void AimTowardsCrosshair();
 	
 };
