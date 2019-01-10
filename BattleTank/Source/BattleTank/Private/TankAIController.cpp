@@ -1,42 +1,38 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAIController.h"
+
 #include "BattleTank.h"
-#include "Engine/World.h"
+#include "Classes/Engine/World.h"
 #include "Classes/GameFramework/PlayerController.h"
+#include "TankAIController.h"
 
-ATank* ATankAIController::GetControlledTank() const{return Cast<ATank>(GetPawn());}
-
-ATank * ATankAIController::GetPlayerTank() const
-{
-	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-	
-	return (!PlayerPawn)?nullptr:Cast<ATank>(PlayerPawn);
-}
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto PlayerTank = GetPlayerTank();
-	
-	if (!PlayerTank)
+	auto PlayerPawn = GetPlayerTank();
+	if (!PlayerPawn)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AIcontroller can't find Player tank"))
+		UE_LOG(LogTemp, Warning, TEXT("AIController can't find player tank"));
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%s AIcontroller found player: %s"),*GetControlledTank()->GetName(), *PlayerTank->GetName())
+		UE_LOG(LogTemp, Warning, TEXT("AIController find player: %s"), *(PlayerPawn->GetName()));
 	}
-
 }
 
-void ATankAIController::Tick(float DeltaTime)
+ATank* ATankAIController::GetControlledTank() const
 {
-	Super::Tick(DeltaTime);
-	//AimTowardsCrosshair();
-
-	UE_LOG(LogTemp, Warning, TEXT("AI controller ticking"))
-
+	return Cast<ATank>(GetPawn());
 }
 
+ATank * ATankAIController::GetPlayerTank() const
+{
+	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	
+	if (!PlayerPawn) { return nullptr; }
+
+	return Cast<ATank>(PlayerPawn);
+}
